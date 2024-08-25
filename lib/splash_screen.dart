@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: Image.asset(
-            'assets/PM2.jpeg', // Make sure the image is in the correct path
+            'assets/lendana.png', // Make sure the image is in the correct path
             width: 200, // Adjust the size as needed
           ),
         ),

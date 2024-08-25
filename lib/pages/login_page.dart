@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:lendana5/components/square_tile.dart';
 import 'package:lendana5/repository/api_repository.dart';
 import 'package:lendana5/pages/landing_page.dart';
 
@@ -82,17 +84,18 @@ class _LoginPageState extends State<LoginPage> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(20),
                           child: Image.asset(
-                            'assets/PM1.jpeg', // Assuming pm2.jpeg is the correct logo
+                            'assets/lendana.png', // Assuming pm2.jpeg is the correct logo
                             height: 150, // Set your desired height
                           ),
                         ),
                         SizedBox(height: 20),
 
                         Text(
-                          "Please sign in to continue",
+                          'Pekerja Migran Indonesia',
                           style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey,
+                            color: Colors.blue[600],
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         SizedBox(height: 30),
@@ -132,12 +135,27 @@ class _LoginPageState extends State<LoginPage> {
                             return null;
                           },
                         ),
-                        SizedBox(height: 20),
                         if (errorMessage != null)
-                          Text(
-                            errorMessage!,
-                            style: TextStyle(color: Colors.red),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              errorMessage!,
+                              style: TextStyle(color: Colors.red),
+                            ),
                           ),
+                        SizedBox(height: 5),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                'Forgot Password?',
+                                style: TextStyle(color: Colors.grey[600]),
+                              ),
+                            ],
+                          ),
+                        ),
                         SizedBox(height: 20),
                         ElevatedButton(
                           onPressed: _login,
@@ -156,13 +174,62 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         SizedBox(height: 20),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Divider(
+                                  thickness: 0.5,
+                                  color: Colors.grey[400],
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10.0),
+                                child: Text(
+                                  'Or continue with',
+                                  style: TextStyle(color: Colors.grey[700]),
+                                ),
+                              ),
+                              Expanded(
+                                child: Divider(
+                                  thickness: 0.5,
+                                  color: Colors.grey[400],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        const SizedBox(height: 20),
+
+                        // google + apple sign in buttons
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            // google button
+                            GestureDetector(
+                                onTap: () {},
+                                //handleGoogleSignIn,
+                                child:
+                                    SquareTile(imagePath: 'assets/google.png')),
+
+                            SizedBox(width: 25),
+
+                            // apple button
+                            //
+                          ],
+                        ),
+                        SizedBox(height: 20),
                         TextButton(
                           onPressed: () {
                             Navigator.pushNamed(context, '/register');
                           },
                           child: Text(
                             "Don't have an account? Register",
-                            style: TextStyle(color: Colors.blue),
+                            style: TextStyle(color: Colors.red, fontSize: 16),
                           ),
                         ),
                       ],

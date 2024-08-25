@@ -33,7 +33,7 @@ class _LogoutPageState extends State<LogoutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Logout Page')),
+      //    appBar: AppBar(title: Text('Logout Page')),
       body: Center(
         child: isLoading
             ? CircularProgressIndicator()

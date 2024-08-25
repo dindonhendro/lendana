@@ -96,7 +96,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: Image.asset(
-                        'assets/PM2.jpeg',
+                        'assets/lendana.png',
                         width: 200,
                         height: 200,
                       ),

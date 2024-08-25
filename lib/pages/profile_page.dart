@@ -130,10 +130,16 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Profile Page'),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        elevation: 0,
+      // appBar: AppBar(
+      //   title: Text('Profile Page'),
+      //   backgroundColor: Theme.of(context).colorScheme.primary,
+      //   elevation: 0,
+      // ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _deleteUser;
+        },
+        child: Icon(Icons.delete_forever),
       ),
       body: isLoading
           ? Center(child: CircularProgressIndicator())
@@ -199,15 +205,15 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ),
                           SizedBox(height: 10),
-                          ElevatedButton.icon(
-                            onPressed: _deleteUser,
-                            icon: Icon(Icons.delete_forever),
-                            label: Text('Delete User'),
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: Size(double.infinity, 50),
-                              backgroundColor: Colors.red,
-                            ),
-                          ),
+                          // ElevatedButton.icon(
+                          //   onPressed: _deleteUser,
+                          //   icon: Icon(Icons.delete_forever),
+                          //   label: Text('Delete User'),
+                          //   style: ElevatedButton.styleFrom(
+                          //     minimumSize: Size(double.infinity, 50),
+                          //     backgroundColor: Colors.red,
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
