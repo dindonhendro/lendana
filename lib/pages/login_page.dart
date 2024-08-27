@@ -174,6 +174,23 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/register');
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 100, vertical: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          child: Text(
+                            "Register",
+                            style: TextStyle(fontSize: 16, color: Colors.red),
+                          ),
+                        ),
+                        SizedBox(height: 20),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 25.0),
                           child: Row(
@@ -221,16 +238,6 @@ class _LoginPageState extends State<LoginPage> {
                             // apple button
                             //
                           ],
-                        ),
-                        SizedBox(height: 20),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/register');
-                          },
-                          child: Text(
-                            "Don't have an account? Register",
-                            style: TextStyle(color: Colors.red, fontSize: 16),
-                          ),
                         ),
                       ],
                     ),

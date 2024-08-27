@@ -80,9 +80,9 @@ class _UserPageState extends State<UserPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('User Page'),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('User Page'),
+      // ),
       body: FutureBuilder<UserResponse>(
         future: _user,
         builder: (context, snapshot) {

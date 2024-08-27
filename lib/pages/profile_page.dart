@@ -187,24 +187,30 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           SizedBox(height: 20),
                           Text(
-                            'Name: ${user.nama ?? "N/A"}',
+                            '${user.nama ?? "N/A"}',
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(height: 10),
+                          itemProfile('NIK', '${user.nik}', Icons.person),
+                          const SizedBox(height: 10),
+                          itemProfile('Email', '${user.email}', Icons.mail),
+                          const SizedBox(height: 10),
+                          itemProfile(
+                              'No HP', '${user.hp}', Icons.phone_android),
                           Text('NIK: ${user.nik ?? "N/A"}'),
                           Text('Nomor HP: ${user.hp ?? "N/A"}'),
                           SizedBox(height: 20),
-                          ElevatedButton.icon(
-                            onPressed: _uploadFoto,
-                            icon: Icon(Icons.cloud_upload),
-                            label: Text('Upload New Foto Image'),
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: Size(double.infinity, 50),
-                              backgroundColor: Colors.grey[700],
-                            ),
-                          ),
-                          SizedBox(height: 10),
+                          // ElevatedButton.icon(
+                          //   onPressed: _uploadFoto,
+                          //   icon: Icon(Icons.cloud_upload),
+                          //   label: Text('Upload New Foto Image'),
+                          //   style: ElevatedButton.styleFrom(
+                          //     minimumSize: Size(double.infinity, 50),
+                          //     backgroundColor: Colors.grey[700],
+                          //   ),
+                          // ),
+                          // SizedBox(height: 10),
                           // ElevatedButton.icon(
                           //   onPressed: _deleteUser,
                           //   icon: Icon(Icons.delete_forever),
@@ -225,4 +231,26 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
     );
   }
+}
+
+itemProfile(String title, String subtitle, IconData iconData) {
+  return Container(
+    decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+              offset: Offset(0, 5),
+              color: Colors.greenAccent.withOpacity(.2),
+              spreadRadius: 2,
+              blurRadius: 10)
+        ]),
+    child: ListTile(
+      title: Text(title),
+      subtitle: Text(subtitle),
+      leading: Icon(iconData),
+      //trailing: Icon(Icons.arrow_forward, color: Colors.grey.shade400),
+      tileColor: Colors.white,
+    ),
+  );
 }

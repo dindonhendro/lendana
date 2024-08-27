@@ -96,9 +96,9 @@ class _UserPage1State extends State<UserPage1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('User Page'),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('User Page'),
+      // ),
       body: FutureBuilder<UserResponse>(
         future: _user,
         builder: (context, snapshot) {
