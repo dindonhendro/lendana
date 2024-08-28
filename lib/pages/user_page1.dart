@@ -96,9 +96,10 @@ class _UserPage1State extends State<UserPage1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('User Page'),
-      // ),
+      appBar: AppBar(
+        elevation: 0,
+//        title: const Text('User Page'),
+      ),
       body: FutureBuilder<UserResponse>(
         future: _user,
         builder: (context, snapshot) {
@@ -118,10 +119,22 @@ class _UserPage1State extends State<UserPage1> {
                   key: _formKey, // Assign the form key to the Form widget
                   child: Column(
                     children: [
+                      Text(
+                        'Lengkapi Data Diri Anda',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        //  style: Theme.of(context).textTheme.headline1,
+                      ),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: nikController,
                         decoration: InputDecoration(
                             labelText: 'No KTP',
+                            labelStyle: TextStyle(
+                                color: Colors.blueAccent, fontSize: 15.0),
                             hintText: '10 digits',
                             hintStyle: TextStyle(color: Colors.grey),
                             focusedBorder: OutlineInputBorder(
@@ -147,6 +160,8 @@ class _UserPage1State extends State<UserPage1> {
                         controller: hpController,
                         decoration: InputDecoration(
                             labelText: 'No HandPhone',
+                            labelStyle: TextStyle(
+                                color: Colors.blueAccent, fontSize: 15.0),
                             hintText: 'Min 10 digits',
                             hintStyle: TextStyle(color: Colors.grey),
                             focusedBorder: OutlineInputBorder(
@@ -168,6 +183,8 @@ class _UserPage1State extends State<UserPage1> {
                       DropdownButtonFormField<String>(
                         decoration: InputDecoration(
                           labelText: 'Pendidikan Terakhir',
+                          labelStyle: TextStyle(
+                              color: Colors.blueAccent, fontSize: 15.0),
                           prefixIcon: Icon(Icons.school),
                           enabledBorder: OutlineInputBorder(
                             borderSide:
@@ -201,6 +218,8 @@ class _UserPage1State extends State<UserPage1> {
                       DropdownButtonFormField<String>(
                         decoration: InputDecoration(
                           labelText: 'Negara Tujuan',
+                          labelStyle: TextStyle(
+                              color: Colors.blueAccent, fontSize: 15.0),
                           prefixIcon: Icon(Icons.flight),
                           enabledBorder: OutlineInputBorder(
                             borderSide:
@@ -278,13 +297,7 @@ class _UserPage1State extends State<UserPage1> {
                             }
                           }
                         },
-                        child: Text('Update User'),
-                      ),
-                      SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () => _deleteUser(widget.userId),
-                        child: Text('Delete User'),
-                        // style: ElevatedButton.styleFrom(primary: Colors.red),
+                        child: Text('Update Data'),
                       ),
                     ],
                   ),

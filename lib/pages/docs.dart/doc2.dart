@@ -8,16 +8,16 @@ import 'package:lendana5/models/user_response.dart';
 import 'package:lendana5/repository/api_repository.dart';
 import 'package:lendana5/models/profile_response.dart';
 
-class doc1 extends StatefulWidget {
+class doc2 extends StatefulWidget {
   final int? userId;
 
-  const doc1({Key? key, required this.userId}) : super(key: key);
+  const doc2({Key? key, required this.userId}) : super(key: key);
 
   @override
-  _doc1State createState() => _doc1State();
+  _doc2State createState() => _doc2State();
 }
 
-class _doc1State extends State<doc1> {
+class _doc2State extends State<doc2> {
   late Future<ProfileResponse?> _profileFuture;
   late Future<UserResponse> _userResponseFuture;
   File? _imageFile;

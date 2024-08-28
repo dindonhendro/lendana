@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lendana5/pages/job_page.dart';
+import 'package:lendana5/jobfinder/screens/main_screen.dart';
+import 'package:lendana5/pages/bank_page.dart';
 import 'package:lendana5/pages/profile_page.dart';
 import 'package:lendana5/pages/lengkapi_page.dart';
 import 'package:lendana5/pages/logout_page.dart';
@@ -61,10 +62,12 @@ class LandingPage extends StatelessWidget {
               final userId = snapshot.data!;
               return TabBarView(
                 children: <Widget>[
-                  JobPage(),
+                  MainScreen(),
                   LengkapiPage(userId: userId),
+                  BankPage(
+                    userId: userId,
+                  ),
                   ProfilePage(userId: userId),
-                  LogoutPage(),
                 ],
               );
             } else {
@@ -84,16 +87,16 @@ class LandingPage extends StatelessWidget {
             ),
             Tab(
               icon: Icon(Icons.person),
-              text: 'Lengkapi',
+              text: 'Data',
+            ),
+            Tab(
+              icon: Icon(Icons.money),
+              text: 'Loan',
             ),
             Tab(
               icon: Icon(Icons.people),
               text: 'Profile',
             ),
-            Tab(
-              icon: Icon(Icons.logout),
-              text: 'Logout',
-            )
           ],
         ),
       ),

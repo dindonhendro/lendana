@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lendana5/components/my_button.dart';
+import 'package:lendana5/pages/docs.dart/dokumen1_page.dart';
+import 'package:lendana5/pages/docs.dart/kk.dart';
 import 'package:lendana5/pages/docs.dart/ktp_page.dart';
 import 'package:lendana5/pages/foto_page.dart';
 
@@ -17,7 +19,8 @@ class _DocPageState extends State<DocPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Upload Dokumen'),
+        title: Text(''),
+        elevation: 0,
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -34,9 +37,15 @@ class _DocPageState extends State<DocPage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Center(
-                child: Text('Uggah Dokumen Pelengkap',
-                    style:
-                        TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Upload Dokumen Anda',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  //  style: Theme.of(context).textTheme.headline1,
+                ),
               ),
             ),
             SizedBox(height: 20),
@@ -50,7 +59,20 @@ class _DocPageState extends State<DocPage> {
                             )),
                   );
                 },
-                child: Text('KTP/NIK')),
+                child: Text('KTP/NIK', style: TextStyle(color: Colors.white))),
+            SizedBox(height: 20),
+            MyButton(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Dokumen1Page(
+                              userId: widget.userId,
+                            )),
+                  );
+                },
+                child: Text('Dokumen Lain',
+                    style: TextStyle(color: Colors.white))),
           ],
         ),
       ),

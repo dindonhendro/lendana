@@ -45,7 +45,7 @@ class _FotoPageState extends State<FotoPage> {
 
   Future<void> _pickImage() async {
     final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+        await ImagePicker().pickImage(source: ImageSource.camera);
 
     if (pickedFile != null) {
       setState(() {
@@ -84,21 +84,43 @@ class _FotoPageState extends State<FotoPage> {
         setState(() {
           _userResponseFuture = getUserData(widget.userId);
         });
+
+        // Show success message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Photo uploaded successfully'),
+            backgroundColor: Colors.green,
+          ),
+        );
       } else {
         print('Error adding image: ${response.data}');
+        // Show error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to upload photo'),
+            backgroundColor: Colors.red,
+          ),
+        );
       }
     } catch (e) {
       print('Exception occurred: $e');
+      // Show exception message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('An error occurred while uploading the photo'),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Profile'),
-      //   centerTitle: true,
-      // ),
+      appBar: AppBar(
+        elevation: 0,
+//        title: const Text('User Page'),
+      ),
       body: FutureBuilder<UserResponse>(
         future: _userResponseFuture,
         builder: (context, snapshot) {
@@ -115,18 +137,38 @@ class _FotoPageState extends State<FotoPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Text(
+                    'Gunakan Camera untuk mengambil foto diri',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    //  style: Theme.of(context).textTheme.headline1,
+                  ),
+                  SizedBox(height: 20),
                   if (fotoUrl != null)
-                    Image.network(
-                      fotoUrl,
-                      width: 200,
-                      height: 200,
-                      fit: BoxFit.cover,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return CircularProgressIndicator();
-                      },
-                      errorBuilder: (context, error, stackTrace) =>
-                          Icon(Icons.error),
+                    CircleAvatar(
+                      radius:
+                          100, // Increase the radius to make the avatar larger
+                      backgroundColor: Colors
+                          .transparent, // Optional: Transparent background
+                      child: ClipOval(
+                        // Clip the image to a circular shape
+                        child: Image.network(
+                          fotoUrl,
+                          width:
+                              200, // These dimensions should match the diameter of the CircleAvatar
+                          height: 200,
+                          fit: BoxFit.cover,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return CircularProgressIndicator();
+                          },
+                          errorBuilder: (context, error, stackTrace) =>
+                              Icon(Icons.error),
+                        ),
+                      ),
                     )
                   else if (_selectedImage != null)
                     Image.file(

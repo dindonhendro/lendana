@@ -24,15 +24,9 @@ class MyDrawer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               MyListTile(
-                icon: Icons.home,
-                text: 'Shop',
-                onTap: () => Navigator.pop(context),
-              ),
-              MyListTile(
-                icon: Icons.shopping_cart,
-                text: 'Cart',
-                onTap: () => Navigator.pushNamed(context, '/cart_page'),
-              ),
+                  icon: Icons.delete_forever,
+                  text: 'DELETE ACCOUNT',
+                  onTap: () {}),
             ],
           ),
           Padding(

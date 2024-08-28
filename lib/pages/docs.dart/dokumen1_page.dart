@@ -7,16 +7,16 @@ import 'package:lendana5/constants.dart';
 
 import 'package:lendana5/models/user_response.dart';
 
-class KtpPage extends StatefulWidget {
+class Dokumen1Page extends StatefulWidget {
   final int userId;
 
-  const KtpPage({Key? key, required this.userId}) : super(key: key);
+  const Dokumen1Page({Key? key, required this.userId}) : super(key: key);
 
   @override
-  _KtpPageState createState() => _KtpPageState();
+  _Dokumen1PageState createState() => _Dokumen1PageState();
 }
 
-class _KtpPageState extends State<KtpPage> {
+class _Dokumen1PageState extends State<Dokumen1Page> {
   late Future<UserResponse> _userResponseFuture;
   File? _selectedImage;
 
@@ -54,7 +54,7 @@ class _KtpPageState extends State<KtpPage> {
     }
   }
 
-  Future<void> _uploadKtp() async {
+  Future<void> _uploadDokumen1() async {
     if (_selectedImage == null) {
       print('Error: Image file not selected');
       return;
@@ -65,7 +65,7 @@ class _KtpPageState extends State<KtpPage> {
       'files': await MultipartFile.fromFile(_selectedImage!.path),
       'refId': widget.userId,
       'ref': 'plugin::users-permissions.user',
-      'field': 'ktp',
+      'field': 'dokumen1',
     });
 
     try {
@@ -88,7 +88,7 @@ class _KtpPageState extends State<KtpPage> {
         // Show success message
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('KTP Image uploaded successfully'),
+            content: Text('Doc Image uploaded successfully'),
             backgroundColor: Colors.green,
           ),
         );
@@ -97,7 +97,7 @@ class _KtpPageState extends State<KtpPage> {
         // Show error message
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to upload KTP image'),
+            content: Text('Failed to upload Doc image'),
             backgroundColor: Colors.red,
           ),
         );
@@ -130,15 +130,16 @@ class _KtpPageState extends State<KtpPage> {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (snapshot.hasData) {
             final user = snapshot.data!;
-            final ktpUrl =
-                user.ktp?.url != null ? '$BASE_URLP${user.ktp!.url}' : null;
+            final dokumen1Url = user.dokumen1?.url != null
+                ? '$BASE_URLP${user.dokumen1!.url}'
+                : null;
 
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Upload KTP/NIK Image',
+                    'Upload Dokumen Image',
                     style: TextStyle(
                       fontSize: 15.0,
                       fontWeight: FontWeight.bold,
@@ -147,9 +148,9 @@ class _KtpPageState extends State<KtpPage> {
                     //  style: Theme.of(context).textTheme.headline1,
                   ),
                   SizedBox(height: 20),
-                  if (ktpUrl != null)
+                  if (dokumen1Url != null)
                     Image.network(
-                      ktpUrl,
+                      dokumen1Url,
                       width: 200,
                       height: 200,
                       fit: BoxFit.cover,
@@ -172,11 +173,11 @@ class _KtpPageState extends State<KtpPage> {
                   SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: _pickImage,
-                    child: Text('Select New KTP Image'),
+                    child: Text('Select New Document Image'),
                   ),
                   ElevatedButton(
-                    onPressed: _uploadKtp,
-                    child: Text('Upload KTP Image'),
+                    onPressed: _uploadDokumen1,
+                    child: Text('Upload Document Image'),
                   ),
                   SizedBox(height: 20),
                   // Text('Name: ${user.nama ?? "N/A"}'),

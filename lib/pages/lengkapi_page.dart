@@ -26,13 +26,16 @@ class _LengkapiPageState extends State<LengkapiPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 14.0),
-                child: Text(
-                  'Lengkapi profil Anda',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
-              ),
+                  padding: const EdgeInsets.symmetric(vertical: 14.0),
+                  child: Text(
+                    'Lengkapi profile anda untuk pengajuan pinjaman',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    //  style: Theme.of(context).textTheme.headline1,
+                  )),
               SizedBox(height: 10),
               MyButton(
                 width: 250, // Set your desired width
@@ -43,7 +46,10 @@ class _LengkapiPageState extends State<LengkapiPage> {
                         builder: (context) => FotoPage(userId: widget.userId)),
                   );
                 },
-                child: Text('Unggah Foto Diri'),
+                child: Text('Unggah Foto Diri',
+                    style: TextStyle(
+                      color: Colors.white,
+                    )),
               ),
               SizedBox(height: 10),
               MyButton(
@@ -55,7 +61,10 @@ class _LengkapiPageState extends State<LengkapiPage> {
                         builder: (context) => UserPage(userId: widget.userId)),
                   );
                 },
-                child: Text('Data Pribadi'),
+                child: Text('Data Pribadi',
+                    style: TextStyle(
+                      color: Colors.white,
+                    )),
               ),
               SizedBox(height: 10),
               MyButton(
@@ -67,7 +76,10 @@ class _LengkapiPageState extends State<LengkapiPage> {
                         builder: (context) => UserPage1(userId: widget.userId)),
                   );
                 },
-                child: Text('Data Pendukung'),
+                child: Text('Data Pendukung',
+                    style: TextStyle(
+                      color: Colors.white,
+                    )),
               ),
               SizedBox(height: 10),
               MyButton(
@@ -79,7 +91,10 @@ class _LengkapiPageState extends State<LengkapiPage> {
                         builder: (context) => DocPage(userId: widget.userId)),
                   );
                 },
-                child: Text('Unggah KTP / NIK'),
+                child: Text('Unggah Dokumen',
+                    style: TextStyle(
+                      color: Colors.white,
+                    )),
               ),
             ],
           ),

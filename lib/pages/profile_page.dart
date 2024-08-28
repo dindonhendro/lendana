@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
@@ -127,20 +128,15 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+  void _refreshProfile() {
+    setState(() {
+      _userResponseFuture = getUserData(widget.userId);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Profile Page'),
-      //   backgroundColor: Theme.of(context).colorScheme.primary,
-      //   elevation: 0,
-      // ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _deleteUser;
-        },
-        child: Icon(Icons.delete_forever),
-      ),
       body: isLoading
           ? Center(child: CircularProgressIndicator())
           : FutureBuilder<UserResponse>(
@@ -174,15 +170,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                                 'assets/default_avatar.png')
                                             as ImageProvider,
                               ),
-                              Positioned(
-                                bottom: 0,
-                                right: 0,
-                                child: FloatingActionButton(
-                                  onPressed: _pickImage,
-                                  mini: true,
-                                  child: Icon(Icons.edit),
-                                ),
-                              ),
                             ],
                           ),
                           SizedBox(height: 20),
@@ -192,34 +179,28 @@ class _ProfilePageState extends State<ProfilePage> {
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(height: 10),
-                          itemProfile('NIK', '${user.nik}', Icons.person),
+                          itemProfile(
+                              'NIK', '${user.nik}', Icons.perm_identity),
                           const SizedBox(height: 10),
                           itemProfile('Email', '${user.email}', Icons.mail),
                           const SizedBox(height: 10),
                           itemProfile(
                               'No HP', '${user.hp}', Icons.phone_android),
-                          Text('NIK: ${user.nik ?? "N/A"}'),
-                          Text('Nomor HP: ${user.hp ?? "N/A"}'),
+                          const SizedBox(height: 10),
+                          itemProfile('Alamat', '${user.domisili}', Icons.home),
+                          const SizedBox(height: 10),
+                          itemProfile('Negara Tujuan', '${user.negaraTujuan}',
+                              Icons.travel_explore),
+                          const SizedBox(height: 10),
+                          itemProfile('Jenis Kelamin', '${user.jenis}',
+                              Icons.person_outline),
+                          const SizedBox(height: 10),
+                          itemProfile(
+                              'Status', '${user.status}', Icons.star_outline),
+                          const SizedBox(height: 10),
+                          itemProfile('Tanggal Lahir', '${user.tanggalLahir}',
+                              Icons.brightness_high_outlined),
                           SizedBox(height: 20),
-                          // ElevatedButton.icon(
-                          //   onPressed: _uploadFoto,
-                          //   icon: Icon(Icons.cloud_upload),
-                          //   label: Text('Upload New Foto Image'),
-                          //   style: ElevatedButton.styleFrom(
-                          //     minimumSize: Size(double.infinity, 50),
-                          //     backgroundColor: Colors.grey[700],
-                          //   ),
-                          // ),
-                          // SizedBox(height: 10),
-                          // ElevatedButton.icon(
-                          //   onPressed: _deleteUser,
-                          //   icon: Icon(Icons.delete_forever),
-                          //   label: Text('Delete User'),
-                          //   style: ElevatedButton.styleFrom(
-                          //     minimumSize: Size(double.infinity, 50),
-                          //     backgroundColor: Colors.red,
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),
@@ -229,26 +210,51 @@ class _ProfilePageState extends State<ProfilePage> {
                 }
               },
             ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _refreshProfile,
+        child: Icon(Icons.refresh),
+        backgroundColor: Colors.blue,
+      ),
     );
   }
 }
 
 itemProfile(String title, String subtitle, IconData iconData) {
   return Container(
-    decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-              offset: Offset(0, 5),
-              color: Colors.greenAccent.withOpacity(.2),
-              spreadRadius: 2,
-              blurRadius: 10)
-        ]),
+    decoration: BoxDecoration(color: Colors.white, boxShadow: [
+      BoxShadow(
+          offset: Offset(0, 5),
+          color: Colors.blueAccent.withOpacity(.2),
+          spreadRadius: 2,
+          blurRadius: 10)
+    ]),
     child: ListTile(
-      title: Text(title),
+      title: Stack(
+        children: [
+          // Blurred text layer
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 8, // Smaller size
+              color: Colors.blueAccent.withOpacity(0.1), // Light blue color
+              fontWeight: FontWeight.w100,
+            ),
+          ),
+          // Clear text layer
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 14, // Smaller size
+              color: Colors.blueAccent, // Blue color
+            ),
+          ),
+        ],
+      ),
       subtitle: Text(subtitle),
-      leading: Icon(iconData),
+      leading: CircleAvatar(
+        backgroundColor: Colors.blueAccent.withOpacity(0.1),
+        child: Icon(iconData, color: Colors.blueAccent),
+      ),
       //trailing: Icon(Icons.arrow_forward, color: Colors.grey.shade400),
       tileColor: Colors.white,
     ),

@@ -80,9 +80,10 @@ class _UserPageState extends State<UserPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('User Page'),
-      // ),
+      appBar: AppBar(
+        elevation: 0,
+//        title: const Text('User Page'),
+      ),
       body: FutureBuilder<UserResponse>(
         future: _user,
         builder: (context, snapshot) {
@@ -100,11 +101,22 @@ class _UserPageState extends State<UserPage> {
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
-                    // Name TextFormField with decoration
+                    Text(
+                      'Lengkapi Data Diri Anda',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      //  style: Theme.of(context).textTheme.headline1,
+                    ),
+                    const SizedBox(height: 20),
                     TextFormField(
                       controller: nameController,
                       decoration: InputDecoration(
                         labelText: 'Name',
+                        labelStyle:
+                            TextStyle(color: Colors.blueAccent, fontSize: 15.0),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -117,6 +129,8 @@ class _UserPageState extends State<UserPage> {
                       controller: tanggalLahirController,
                       decoration: InputDecoration(
                         labelText: 'Tanggal Lahir',
+                        labelStyle:
+                            TextStyle(color: Colors.blueAccent, fontSize: 15.0),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -142,7 +156,9 @@ class _UserPageState extends State<UserPage> {
                         });
                       },
                       decoration: InputDecoration(
-                        labelText: 'Jenis',
+                        labelText: 'Jenis Kelamin',
+                        labelStyle:
+                            TextStyle(color: Colors.blueAccent, fontSize: 15.0),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -166,7 +182,9 @@ class _UserPageState extends State<UserPage> {
                         });
                       },
                       decoration: InputDecoration(
-                        labelText: 'Status',
+                        labelText: 'Status Perkawinan',
+                        labelStyle:
+                            TextStyle(color: Colors.blueAccent, fontSize: 15.0),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -178,7 +196,9 @@ class _UserPageState extends State<UserPage> {
                     TextFormField(
                       controller: domisiliController,
                       decoration: InputDecoration(
-                        labelText: 'Domisili',
+                        labelText: 'Alamat sesuai KTP',
+                        labelStyle:
+                            TextStyle(color: Colors.blueAccent, fontSize: 15.0),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -234,14 +254,14 @@ class _UserPageState extends State<UserPage> {
                           );
                         }
                       },
-                      child: const Text('Update User'),
+                      child: const Text('Update Data Diri'),
                     ),
-                    const SizedBox(height: 20),
-                    // Delete User Button
-                    ElevatedButton(
-                      onPressed: () => _deleteUser(widget.userId),
-                      child: const Text('Delete User'),
-                    ),
+                    // const SizedBox(height: 20),
+                    // // Delete User Button
+                    // ElevatedButton(
+                    //   onPressed: () => _deleteUser(widget.userId),
+                    //   child: const Text('Delete User'),
+                    // ),
                   ],
                 ),
               ),
