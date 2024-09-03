@@ -20,6 +20,9 @@ class RequestUser1 {
   String? perusahaan;
   String? negara;
   String? profesi;
+  String? bank;
+  String? jumlahPinjam;
+  String? pengalaman;
   String? tahunKerjaMasuk;
   String? tahunKerjaKeluar;
   String? negaraTujuan;
@@ -48,6 +51,9 @@ class RequestUser1 {
       this.perusahaan,
       this.negara,
       this.profesi,
+      this.bank,
+      this.jumlahPinjam,
+      this.pengalaman,
       this.tahunKerjaMasuk,
       this.tahunKerjaKeluar,
       this.negaraTujuan,
@@ -76,6 +82,9 @@ class RequestUser1 {
     perusahaan = json['perusahaan'];
     negara = json['negara'];
     profesi = json['profesi'];
+    bank = json['bank'];
+    jumlahPinjam = json['jumlahPinjam'];
+    pengalaman = json['pengalaman'];
     tahunKerjaMasuk = json['tahunKerjaMasuk'];
     tahunKerjaKeluar = json['tahunKerjaKeluar'];
     negaraTujuan = json['negaraTujuan'];
@@ -106,6 +115,9 @@ class RequestUser1 {
     data['perusahaan'] = this.perusahaan;
     data['negara'] = this.negara;
     data['profesi'] = this.profesi;
+    data['bank'] = this.bank;
+    data['jumlahPinjam'] = this.jumlahPinjam;
+    data['pengalaman'] = this.pengalaman;
     data['tahunKerjaMasuk'] = this.tahunKerjaMasuk;
     data['tahunKerjaKeluar'] = this.tahunKerjaKeluar;
     data['negaraTujuan'] = this.negaraTujuan;

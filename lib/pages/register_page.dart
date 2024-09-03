@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:lendana5/constants.dart';
@@ -17,9 +18,17 @@ class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
   String? _errorMessage;
+  bool _termsAccepted = false; // Variable to track if terms are accepted
 
   Future<void> _addUser() async {
     if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
+    if (!_termsAccepted) {
+      setState(() {
+        _errorMessage = 'You must accept the terms and conditions to proceed.';
+      });
       return;
     }
 
@@ -70,6 +79,15 @@ class _RegisterPageState extends State<RegisterPage> {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  void _showTermsAndConditions() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TermsAndConditionsPage(),
+      ),
+    );
   }
 
   @override
@@ -160,6 +178,29 @@ class _RegisterPageState extends State<RegisterPage> {
                     },
                   ),
                   SizedBox(height: 20),
+                  CheckboxListTile(
+                    title: Row(
+                      children: [
+                        Flexible(child: Text('I accept the ')),
+                        GestureDetector(
+                          onTap: _showTermsAndConditions,
+                          child: Text(
+                            'Terms and Conditions',
+                            style: TextStyle(
+                              color: Colors.blue,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    value: _termsAccepted,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        _termsAccepted = value ?? false;
+                      });
+                    },
+                  ),
                   if (_errorMessage != null)
                     Text(
                       _errorMessage!,
@@ -181,6 +222,26 @@ class _RegisterPageState extends State<RegisterPage> {
                 ],
               ),
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class TermsAndConditionsPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Terms and Conditions'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Text(
+            'Here are the terms and conditions...',
+            style: TextStyle(fontSize: 16),
           ),
         ),
       ),

@@ -17,7 +17,7 @@ class BankPage extends StatefulWidget {
 class _BankPageState extends State<BankPage> {
   late Future<UserResponse> _user;
   String? _selectedBank; // field perusahaan
-  final negaraController = TextEditingController(); // field negara
+  final jumlahPinjamController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -37,7 +37,7 @@ class _BankPageState extends State<BankPage> {
     if (user == null) return;
 
     setState(() {
-      negaraController.text = user.negara ?? '';
+      jumlahPinjamController.text = user.jumlahPinjam ?? '';
       _selectedBank =
           (user.perusahaan == 'Bank BNI' || user.perusahaan == 'Bank Nano')
               ? user.perusahaan
@@ -61,7 +61,7 @@ class _BankPageState extends State<BankPage> {
         snapshotData.nama!.isEmpty ||
         snapshotData.nik == null ||
         snapshotData.nik!.isEmpty ||
-        negaraController.text.isEmpty ||
+        jumlahPinjamController.text.isEmpty ||
         _selectedBank == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -81,7 +81,7 @@ class _BankPageState extends State<BankPage> {
       createdAt: snapshotData.createdAt,
       updatedAt: snapshotData.updatedAt,
       tanggalLahir: snapshotData.tanggalLahir,
-      jenis: _selectedBank,
+      jenis: snapshotData.domisili,
       status: snapshotData.status,
       domisili: snapshotData.domisili,
       hp: snapshotData.hp,
@@ -90,9 +90,12 @@ class _BankPageState extends State<BankPage> {
       tahunMasuk: snapshotData.tahunMasuk,
       tahunKeluar: snapshotData.tahunKeluar,
       namaSekolah: snapshotData.namaSekolah,
-      perusahaan: _selectedBank,
-      negara: negaraController.text,
+      perusahaan: snapshotData.perusahaan,
+      negara: snapshotData.negara,
       profesi: snapshotData.profesi,
+      bank: _selectedBank,
+      jumlahPinjam: jumlahPinjamController.text,
+      pengalaman: snapshotData.pengalaman,
       tahunKerjaMasuk: snapshotData.tahunKerjaMasuk,
       tahunKerjaKeluar: snapshotData.tahunKerjaKeluar,
       negaraTujuan: snapshotData.negaraTujuan,
@@ -193,7 +196,7 @@ class _BankPageState extends State<BankPage> {
                       const SizedBox(height: 20),
                       // TextFormField with currency formatter
                       TextFormField(
-                        controller: negaraController,
+                        controller: jumlahPinjamController,
                         decoration: InputDecoration(
                           labelText: 'Nilai Pinjaman Yang Diajukan',
                           border: OutlineInputBorder(
