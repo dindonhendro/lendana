@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:lendana5/constants.dart';
@@ -18,7 +19,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
   String? _errorMessage;
-  bool _termsAccepted = false; // Variable to track if terms are accepted
+  bool _termsAccepted = false;
 
   Future<void> _addUser() async {
     if (!_formKey.currentState!.validate()) {
@@ -94,7 +95,8 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Register User'),
+        title: Text('Registrasi Data Diri',
+            style: TextStyle(color: Colors.black, fontSize: 15)),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -147,6 +149,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
+                    keyboardType: TextInputType.emailAddress,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter an email';
@@ -179,20 +182,24 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   SizedBox(height: 20),
                   CheckboxListTile(
-                    title: Row(
-                      children: [
-                        Flexible(child: Text('I accept the ')),
-                        GestureDetector(
-                          onTap: _showTermsAndConditions,
-                          child: Text(
-                            'Terms and Conditions',
+                    title: RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Anda Telah Membaca dan Menyetujui ',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          TextSpan(
+                            text: 'Terms and Conditions',
                             style: TextStyle(
                               color: Colors.blue,
                               decoration: TextDecoration.underline,
                             ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = _showTermsAndConditions,
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     value: _termsAccepted,
                     onChanged: (bool? value) {

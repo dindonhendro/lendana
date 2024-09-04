@@ -15,11 +15,11 @@ class SplashScreen extends StatelessWidget {
               children: <Widget>[
                 Text(
                   'Job hunting',
-                  style: Theme.of(context).textTheme.headline1,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 Text(
                   'made easy',
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ],
             ),

@@ -16,6 +16,8 @@ class UserPage extends StatefulWidget {
 class _UserPageState extends State<UserPage> {
   late Future<UserResponse> _user;
   final nameController = TextEditingController();
+  final nikController = TextEditingController();
+  final hpController = TextEditingController();
   final tanggalLahirController = TextEditingController();
   final domisiliController = TextEditingController();
   String? _selectedGender;
@@ -39,6 +41,8 @@ class _UserPageState extends State<UserPage> {
 
     setState(() {
       nameController.text = user.nama ?? '';
+      nikController.text = user.nik ?? '';
+      hpController.text = user.hp ?? '';
       tanggalLahirController.text = user.tanggalLahir ?? '';
       _selectedGender =
           user.jenis == 'Male' || user.jenis == 'Female' ? user.jenis : null;
@@ -111,98 +115,215 @@ class _UserPageState extends State<UserPage> {
                       //  style: Theme.of(context).textTheme.headline1,
                     ),
                     const SizedBox(height: 20),
-                    TextFormField(
-                      controller: nameController,
-                      decoration: InputDecoration(
-                        labelText: 'Name',
-                        labelStyle:
-                            TextStyle(color: Colors.blueAccent, fontSize: 15.0),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Color.fromARGB(255, 244, 247, 248),
+                            const Color.fromARGB(255, 226, 238, 240)
+                          ],
+                          end: Alignment.bottomCenter,
+                          begin: Alignment.topCenter,
                         ),
-                        prefixIcon: Icon(Icons.person),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TextFormField(
+                        controller: nameController,
+                        decoration: InputDecoration(
+                          labelText: 'Name',
+                          labelStyle: TextStyle(
+                              color: Colors.blueAccent, fontSize: 15.0),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          prefixIcon: Icon(Icons.person),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Color.fromARGB(255, 244, 247, 248),
+                            Color.fromARGB(255, 193, 214, 222)
+                          ],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TextFormField(
+                        controller: nikController,
+                        decoration: InputDecoration(
+                          labelText: 'NIK/KTP',
+                          labelStyle: TextStyle(
+                              color: Colors.blueAccent, fontSize: 15.0),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          prefixIcon: Icon(Icons.credit_card),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Color.fromARGB(255, 244, 247, 248),
+                            Color.fromARGB(255, 193, 214, 222)
+                          ],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TextFormField(
+                        controller: hpController,
+                        decoration: InputDecoration(
+                          labelText: 'No HandPhone',
+                          labelStyle: TextStyle(
+                              color: Colors.blueAccent, fontSize: 15.0),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          prefixIcon: Icon(Icons.phone_android_outlined),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 20),
                     // Tanggal Lahir TextFormField with decoration
-                    TextFormField(
-                      controller: tanggalLahirController,
-                      decoration: InputDecoration(
-                        labelText: 'Tanggal Lahir',
-                        labelStyle:
-                            TextStyle(color: Colors.blueAccent, fontSize: 15.0),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Color.fromARGB(255, 244, 247, 248),
+                            Color.fromARGB(255, 193, 214, 222)
+                          ],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
                         ),
-                        suffixIcon: Icon(Icons.calendar_today),
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      readOnly: true,
-                      onTap: () => _selectDate(context),
+                      child: TextFormField(
+                        controller: tanggalLahirController,
+                        decoration: InputDecoration(
+                          labelText: 'Tanggal Lahir',
+                          labelStyle: TextStyle(
+                              color: Colors.blueAccent, fontSize: 15.0),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          suffixIcon: Icon(Icons.calendar_today),
+                        ),
+                        readOnly: true,
+                        onTap: () => _selectDate(context),
+                      ),
                     ),
                     const SizedBox(height: 20),
                     // Gender DropdownButtonFormField with decoration
-                    DropdownButtonFormField<String>(
-                      value: _selectedGender,
-                      items: const <String>['Male', 'Female']
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          _selectedGender = newValue;
-                        });
-                      },
-                      decoration: InputDecoration(
-                        labelText: 'Jenis Kelamin',
-                        labelStyle:
-                            TextStyle(color: Colors.blueAccent, fontSize: 15.0),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Color.fromARGB(255, 244, 247, 248),
+                            Color.fromARGB(255, 193, 214, 222)
+                          ],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
                         ),
-                        prefixIcon: Icon(Icons.wc),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: DropdownButtonFormField<String>(
+                        value: _selectedGender,
+                        items: const <String>['Male', 'Female']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            _selectedGender = newValue;
+                          });
+                        },
+                        decoration: InputDecoration(
+                          labelText: 'Jenis Kelamin',
+                          labelStyle: TextStyle(
+                              color: Colors.blueAccent, fontSize: 15.0),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          prefixIcon: Icon(Icons.wc),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 20),
                     // Status DropdownButtonFormField with decoration
-                    DropdownButtonFormField<String>(
-                      value: _selectedStatus,
-                      items: const <String>['Married', 'Not Married']
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          _selectedStatus = newValue;
-                        });
-                      },
-                      decoration: InputDecoration(
-                        labelText: 'Status Perkawinan',
-                        labelStyle:
-                            TextStyle(color: Colors.blueAccent, fontSize: 15.0),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Color.fromARGB(255, 244, 247, 248),
+                            Color.fromARGB(255, 193, 214, 222)
+                          ],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
                         ),
-                        prefixIcon: Icon(Icons.family_restroom),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: DropdownButtonFormField<String>(
+                        value: _selectedStatus,
+                        items: const <String>['Married', 'Not Married']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            _selectedStatus = newValue;
+                          });
+                        },
+                        decoration: InputDecoration(
+                          labelText: 'Status Perkawinan',
+                          labelStyle: TextStyle(
+                              color: Colors.blueAccent, fontSize: 15.0),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          prefixIcon: Icon(Icons.family_restroom),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 20),
                     // Domisili TextFormField with decoration
-                    TextFormField(
-                      controller: domisiliController,
-                      decoration: InputDecoration(
-                        labelText: 'Alamat sesuai KTP',
-                        labelStyle:
-                            TextStyle(color: Colors.blueAccent, fontSize: 15.0),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Color.fromARGB(255, 244, 247, 248),
+                            Color.fromARGB(255, 193, 214, 222)
+                          ],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
                         ),
-                        prefixIcon: Icon(Icons.location_on),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TextFormField(
+                        controller: domisiliController,
+                        decoration: InputDecoration(
+                          labelText: 'Alamat sesuai KTP',
+                          labelStyle: TextStyle(
+                              color: Colors.blueAccent, fontSize: 15.0),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          prefixIcon: Icon(Icons.location_on),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -222,8 +343,8 @@ class _UserPageState extends State<UserPage> {
                           jenis: _selectedGender,
                           status: _selectedStatus,
                           domisili: domisiliController.text,
-                          hp: snapshot.data!.hp,
-                          nik: snapshot.data!.nik,
+                          hp: hpController.text,
+                          nik: nikController.text,
                           pendidikan: snapshot.data!.pendidikan,
                           tahunMasuk: snapshot.data!.tahunMasuk,
                           tahunKeluar: snapshot.data!.tahunKeluar,

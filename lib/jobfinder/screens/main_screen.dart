@@ -184,7 +184,7 @@ Isi pekerjaan bidang ini berupa perikanan (memproduksi dan memperbaiki peralatan
           SizedBox(height: 10.0),
           Text(
             'Search for your dream job in different sectors',
-            style: Theme.of(context).textTheme.bodyText2,
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
         ],
       ),
@@ -201,7 +201,7 @@ Isi pekerjaan bidang ini berupa perikanan (memproduksi dan memperbaiki peralatan
             padding: const EdgeInsets.only(left: 30.0),
             child: Text(
               'Jobs For You',
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
           JobCarousel(forYouJobs),
@@ -224,13 +224,13 @@ Isi pekerjaan bidang ini berupa perikanan (memproduksi dan memperbaiki peralatan
               children: <Widget>[
                 Text(
                   'Recent Job Available',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 // Use Flexible or Expanded if there's a chance of overflow
                 Flexible(
                   child: Text(
                     '',
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
               ],

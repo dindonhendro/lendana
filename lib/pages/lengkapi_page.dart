@@ -77,22 +77,6 @@ class _LengkapiPageState extends State<LengkapiPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              UserPage1(userId: widget.userId)),
-                    );
-                  },
-                  child: Text('Data Pendukung',
-                      style: TextStyle(
-                        color: Colors.white,
-                      )),
-                ),
-                SizedBox(height: 10),
-                MyButton(
-                  width: 250, // Set your desired width
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
                           builder: (context) => DocPage(userId: widget.userId)),
                     );
                   },
