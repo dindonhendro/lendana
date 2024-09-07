@@ -6,8 +6,10 @@ import 'package:lendana5/repository/api_repository.dart';
 import 'package:lendana5/themes/light_mode.dart';
 import 'package:lendana5/pages/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
+  await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
 
   // Check if the user is logged in

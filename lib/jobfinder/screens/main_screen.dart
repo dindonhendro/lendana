@@ -1,114 +1,148 @@
+import 'dart:convert'; // For json decoding
 import 'package:flutter/material.dart';
-import 'package:lendana5/components/my_drawer.dart';
-
+import 'package:http/http.dart' as http;
+import 'package:lendana5/constants.dart';
+import 'package:lendana5/jobfinder/components/my_drawer.dart';
 import 'package:lendana5/jobfinder/models/job.dart';
 import 'package:lendana5/jobfinder/models/company.dart';
-import '../components/job_carousel.dart';
-import '../components/job_list.dart';
+import 'package:lendana5/jobfinder/screens/job_detail_screen.dart'; // Import the detail screen
 
-class MainScreen extends StatelessWidget {
-  final List<Job> forYouJobs = [
-    Job(
-      role: 'Automotive Engineer',
-      location: 'Okinawa Japan',
-      detail: '''Perbaikan dan Pemeliharaan Mobil (Jidousha Seibi)
+class MainScreen extends StatefulWidget {
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
 
-Isi pekerjaan bidang ini berupa inspeksi dan pemeliharaan harian, pemeriksaan dan pemeliharaan rutin, pembongkaran dan pemeliharaan kendaraan''',
-      company: Company(
-        name: 'Impex Japan Workshop',
-        assetLogo: 'assets/logos/auto.png',
-      ),
-    ),
-    Job(
-      role: 'AgriCulture Supervisor',
-      location: 'Obihiro Japan',
-      detail: '''Agrikultur (Nougyou)
-Isi pekerjaan bidang ini berupa pertanian tanaman umum (manajemen kultivasi, panen, pengiriman dan pemilihan produk pertanian, dll.), peternakan hewan (manajemen pakan ternak, panen, pengiriman dan pemilihan produk peternakan, dll.)''',
-      company: Company(
-        name: 'Obihiro Farm',
-        assetLogo: 'assets/logos/agri.png',
-      ),
-    ),
-    Job(
-      role: 'Building Cleaner',
-      location: 'Shibuya Japan',
-      detail: '''Manajemen Kebersihan Gedung (Biru Kuriningu)
-Isi pekerjaan bidang ini adalah pembersihan bagian dalam bangunan umum (kecuali tempat tinggal), seperti menghilangkan noda/kotoran, menjaga kebersihan lingkungan dan sebagainya      ''',
-      company: Company(
-        name: 'Shibuya Building Cleaning',
-        assetLogo: 'assets/logos/cleaning.png',
-      ),
-    ),
-  ];
+class _MainScreenState extends State<MainScreen> {
+  List<Job> allJobs = [];
+  List<Job> filteredJobs = [];
+  List<String> locations = [];
+  String? selectedLocation;
 
-  final List<Job> recentJobs = [
-    Job(
-      role: 'Restaurant Manager',
-      location: 'Osaka, Japan',
-      detail:
-          '''Isi pekerjaan bidang ini berupa pekerjaan industri restoran secara umum (menyiapkan makanan, pelayanan pelanggan, manajemen restoran)''',
-      company: Company(
-        name: 'Osaka Grill Resto',
-        assetLogo: 'assets/logos/resto.png',
-      ),
-    ),
-    Job(
-      role: 'Perawat Lansia',
-      location: 'Tokyo, Japan',
-      detail:
-          '''Isi pekerjaannya berupa perawatan fisik untuk lansia seperti memandikan, membantu saat makan atau buang air, serta menjaga mental dan fisik lansia yang diurus. Terdapat juga layanan bantuan tambahan seperti membantu jalan-jalan, berolahraga,
-Kunjungan ke rumah pasien (home visit) tidak termasuk ke dalam bidang ini''',
-      company: Company(
-        name: 'Tokyo Hospital',
-        assetLogo: 'assets/logos/nurse.png',
-      ),
-    ),
-    Job(
-      role: 'Supervisor',
-      location: 'Kyoto, Japan',
-      detail:
-          '''Isi pekerjaan bidang ini berupa manufaktur pembuatan makanan dan minuman secara umum (pembuatan dan pemrosesan makanan dan minuman, manajemen kesehatan dan keamanan. 
-''',
-      company: Company(
-        name: 'Kyoto Food',
-        assetLogo: 'assets/logos/food.png',
-      ),
-    ),
-    Job(
-      role: 'Perawat Lansia',
-      location: 'Tokyo, Japan',
-      detail:
-          '''Isi pekerjaannya berupa perawatan fisik untuk lansia seperti memandikan, membantu saat makan atau buang air, serta menjaga mental dan fisik lansia yang diurus. Terdapat juga layanan bantuan tambahan seperti membantu jalan-jalan, berolahraga,
-Kunjungan ke rumah pasien (home visit) tidak termasuk ke dalam bidang ini''',
-      company: Company(
-        name: 'Tokyo Hospital',
-        assetLogo: 'assets/logos/nurse.png',
-      ),
-    ),
-    Job(
-      role: 'Hotel Manager',
-      location: 'Kyoto, Japan',
-      detail: '''Hotel atau Industri Akomodasi (Shukuhaku)
-Isi pekerjaan bidang ini berupa penyediaan servis akomodasi seperti front desk penginapan, perencanaan/relasi publik, hospitality, service restoran.
-''',
-      company: Company(
-        name: 'Kyoto Hotel Chain',
-        assetLogo: 'assets/logos/hotel.png',
-      ),
-    ),
-    Job(
-      role: 'Fish Engineer',
-      location: 'Okinawa Japan',
-      detail: '''Perikanan dan Akuakultur (Gyogyou)
-Isi pekerjaan bidang ini berupa perikanan (memproduksi dan memperbaiki peralatan penangkapan ikan, eksplorasi hewan dan tumbuhan laut, pengoperasian peralatan dan mesin penangkapan ikan, panen hewan atau tumbuhan laut, perawatan dan penyimpanan produk perikanan, pemastian keamanan dan kesehatan, dll.), industri Aquaculture (produksi, perbaikan dan manajemen material perikanan, manajemen kultivasi hewan dan tumbuhan laut, panen dan pemrosesan, pemastian keamanan dan kesehatan
+  @override
+  void initState() {
+    super.initState();
+    fetchJobs(); // Fetch jobs when the screen is initialized
+  }
 
-''',
-      company: Company(
-        name: 'Hoka Fishery',
-        assetLogo: 'assets/logos/resto.png',
+  Future<void> fetchJobs() async {
+    final response = await http.get(Uri.parse('$BASE_URLP/api/jobs'));
+
+    if (response.statusCode == 200) {
+      final jsonResponse = jsonDecode(response.body);
+      final jobsData = jsonResponse['data'];
+
+      setState(() {
+        allJobs = jobsData.map<Job>((jobData) {
+          return Job(
+            role: jobData['role'] ?? 'Unknown Role',
+            location: jobData['location'] ?? 'Unknown Location',
+            detail: jobData['detail'] ?? 'No details available',
+            isFavorite: jobData['isFavorite'] ?? false,
+            company: Company(
+              name: jobData['company'] ?? 'Unknown Company',
+              urlLogo:
+                  '', // There is no 'logo' field in the response, so leave it empty
+            ),
+          );
+        }).toList();
+
+        // Extract unique locations
+        locations = allJobs.map((job) => job.location).toSet().toList();
+
+        // Initially show all jobs
+        filteredJobs = List.from(allJobs);
+      });
+    } else {
+      throw Exception('Failed to load jobs');
+    }
+  }
+
+  void filterJobsByLocation(String? location) {
+    setState(() {
+      selectedLocation = location;
+      filteredJobs = location == null || location.isEmpty
+          ? List.from(allJobs)
+          : allJobs.where((job) => job.location == location).toList();
+    });
+  }
+
+  // Helper function to get flag image path based on location (country)
+  String getFlagImage(String location) {
+    switch (location.toLowerCase()) {
+      case 'taiwan':
+        return 'assets/flags/taiwan.png';
+      case 'japan':
+        return 'assets/flags/japan.png';
+      case 'korea':
+        return 'assets/flags/korea.png';
+      case 'singapore':
+        return 'assets/flags/singapore.png';
+      default:
+        return 'assets/flags/default.png'; // Default flag if needed
+    }
+  }
+
+  Widget buildJobCard(Job job) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => JobDetailScreen(job: job),
+          ),
+        );
+      },
+      child: Card(
+        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+        elevation: 4,
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        job.role,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        job.company.name,
+                        style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                      ),
+                    ],
+                  ),
+                  Image.asset(
+                    getFlagImage(job.location), // Display the flag image
+                    width: 40,
+                    height: 40,
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              Text(
+                'Location: ${job.location}',
+                style: TextStyle(fontSize: 14),
+              ),
+              SizedBox(height: 10),
+              Text(
+                job.detail,
+                style: TextStyle(fontSize: 14, color: Colors.grey[700]),
+              ),
+            ],
+          ),
+        ),
       ),
-    )
-  ];
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,9 +156,9 @@ Isi pekerjaan bidang ini berupa perikanan (memproduksi dan memperbaiki peralatan
         child: ListView(
           children: <Widget>[
             _customAppBar(),
+            _locationFilter(),
             _textsHeader(context),
-            _forYou(context),
-            _recent(context),
+            _jobList(context),
             SizedBox(height: 50.0),
           ],
         ),
@@ -138,30 +172,34 @@ Isi pekerjaan bidang ini berupa perikanan (memproduksi dan memperbaiki peralatan
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          // IconButton(
-          //   iconSize: 40.0,
-          //   icon: SvgPicture.asset('assets/icons/slider.svg'),
-          //   onPressed: () {},
-          // ),
-          // Wrap this Row with Flexible to ensure it doesn't overflow
           Flexible(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                // IconButton(
-                //   iconSize: 40.0,
-                //   icon: SvgPicture.asset('assets/icons/search.svg'),
-                //   onPressed: () {},
-                // ),
-                // IconButton(
-                //   iconSize: 40.0,
-                //   icon: SvgPicture.asset('assets/icons/settings.svg'),
-                //   onPressed: () {},
-                // ),
+                // Add your custom icons here if needed
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _locationFilter() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+      child: DropdownButton<String>(
+        value: selectedLocation,
+        hint: Text('Select Country'),
+        items: locations.map((location) {
+          return DropdownMenuItem<String>(
+            value: location,
+            child: Text(location),
+          );
+        }).toList(),
+        onChanged: (value) {
+          filterJobsByLocation(value);
+        },
       ),
     );
   }
@@ -179,11 +217,10 @@ Isi pekerjaan bidang ini berupa perikanan (memproduksi dan memperbaiki peralatan
               fontWeight: FontWeight.bold,
               color: Theme.of(context).primaryColor,
             ),
-            //  style: Theme.of(context).textTheme.headline1,
           ),
           SizedBox(height: 10.0),
           Text(
-            'Search for your dream job in different sectors',
+            'Search for your dream job in different countries',
             style: Theme.of(context).textTheme.bodyMedium,
           ),
         ],
@@ -191,56 +228,11 @@ Isi pekerjaan bidang ini berupa perikanan (memproduksi dan memperbaiki peralatan
     );
   }
 
-  Widget _forYou(BuildContext context) {
+  Widget _jobList(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(left: 30.0),
-            child: Text(
-              'Jobs For You',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-          ),
-          JobCarousel(forYouJobs),
-        ],
-      ),
-    );
-  }
-
-  Widget _recent(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: Column(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(
-                left: 30.0, right: 30.0, top: 5.0, bottom: 15.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                Text(
-                  'Recent Job Available',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                // Use Flexible or Expanded if there's a chance of overflow
-                Flexible(
-                  child: Text(
-                    '',
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: JobList(recentJobs),
-          ),
-        ],
+        children: filteredJobs.map((job) => buildJobCard(job)).toList(),
       ),
     );
   }

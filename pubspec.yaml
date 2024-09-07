@@ -35,6 +35,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.5
+  flutter_dotenv: ^5.1.0
   flutter_secure_storage: ^9.2.2
   http: ^1.2.1
   image_picker: ^1.1.2
@@ -44,6 +45,7 @@ dependencies:
   timeline_tile: ^2.0.0
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
   flutter_lints: ^4.0.0
   flutter_test:
     sdk: flutter
@@ -59,10 +61,12 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
+    - .env
     - assets/
     - assets/imgs/
     - assets/icons/
     - assets/logos/
+    - assets/flags/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -87,3 +91,9 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_launcher_icons:
+   android: "launcher_icon"
+   image_path: "assets/playstore.png"
+   min_sdk_version: 21
+

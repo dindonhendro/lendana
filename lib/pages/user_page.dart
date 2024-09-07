@@ -148,8 +148,8 @@ class _UserPageState extends State<UserPage> {
                             Color.fromARGB(255, 244, 247, 248),
                             Color.fromARGB(255, 193, 214, 222)
                           ],
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
                         ),
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -164,6 +164,16 @@ class _UserPageState extends State<UserPage> {
                           ),
                           prefixIcon: Icon(Icons.credit_card),
                         ),
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your No KTP';
+                          } else if (value.length != 10 ||
+                              !RegExp(r'^\d{10}$').hasMatch(value)) {
+                            return 'No KTP must be exactly 10 digits';
+                          }
+                          return null;
+                        },
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -174,8 +184,8 @@ class _UserPageState extends State<UserPage> {
                             Color.fromARGB(255, 244, 247, 248),
                             Color.fromARGB(255, 193, 214, 222)
                           ],
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
                         ),
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -190,6 +200,7 @@ class _UserPageState extends State<UserPage> {
                           ),
                           prefixIcon: Icon(Icons.phone_android_outlined),
                         ),
+                        keyboardType: TextInputType.number,
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -201,8 +212,8 @@ class _UserPageState extends State<UserPage> {
                             Color.fromARGB(255, 244, 247, 248),
                             Color.fromARGB(255, 193, 214, 222)
                           ],
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
                         ),
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -230,8 +241,8 @@ class _UserPageState extends State<UserPage> {
                             Color.fromARGB(255, 244, 247, 248),
                             Color.fromARGB(255, 193, 214, 222)
                           ],
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
                         ),
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -269,8 +280,8 @@ class _UserPageState extends State<UserPage> {
                             Color.fromARGB(255, 244, 247, 248),
                             Color.fromARGB(255, 193, 214, 222)
                           ],
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
                         ),
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -308,8 +319,8 @@ class _UserPageState extends State<UserPage> {
                             Color.fromARGB(255, 244, 247, 248),
                             Color.fromARGB(255, 193, 214, 222)
                           ],
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
                         ),
                         borderRadius: BorderRadius.circular(10),
                       ),

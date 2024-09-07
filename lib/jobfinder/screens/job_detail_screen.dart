@@ -14,29 +14,51 @@ class JobDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(job.role),
+        title: Text('Job Details'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              job.company.name,
-              style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  job.role,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Image.asset(
+                  getFlagImage(job.location), // Display the flag image
+                  width: 50,
+                  height: 50,
+                ),
+              ],
             ),
-            SizedBox(height: 10.0),
+            SizedBox(height: 10),
+            Text(
+              'Company: ${job.company.name}',
+              style: TextStyle(fontSize: 18),
+            ),
+            SizedBox(height: 10),
             Text(
               'Location: ${job.location}',
-              style: TextStyle(fontSize: 16.0),
+              style: TextStyle(fontSize: 18),
             ),
-            SizedBox(height: 20.0),
+            SizedBox(height: 10),
+            Text(
+              'Details:',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 5),
             Text(
               job.detail,
-              style: TextStyle(fontSize: 14.0),
+              style: TextStyle(fontSize: 16, color: Colors.grey[700]),
             ),
-            Spacer(),
-            // Use FutureBuilder to wait for the userId
+            SizedBox(height: 50),
             FutureBuilder<int?>(
               future: userIdFuture,
               builder: (context, snapshot) {
@@ -73,10 +95,26 @@ class JobDetailScreen extends StatelessWidget {
                   );
                 }
               },
-            ),
+            )
           ],
         ),
       ),
     );
+  }
+
+  // Helper function to get flag image path based on location (country)
+  String getFlagImage(String location) {
+    switch (location.toLowerCase()) {
+      case 'taiwan':
+        return 'assets/flags/taiwan.png';
+      case 'japan':
+        return 'assets/flags/japan.png';
+      case 'korea':
+        return 'assets/flags/korea.png';
+      case 'singapore':
+        return 'assets/flags/singapore.png';
+      default:
+        return 'assets/flags/default.png'; // Default flag if needed
+    }
   }
 }

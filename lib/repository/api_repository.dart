@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:lendana5/constants.dart';
+
 import 'package:lendana5/models/login_response.dart';
 import 'package:lendana5/models/profile_response.dart';
 import 'package:lendana5/models/user_response.dart';
@@ -121,12 +122,6 @@ class ApiRepository {
     } else {
       throw Exception('Failed to fetch profile: ${response.statusCode}');
     }
-  }
-
-  // Function to save the token to shared preferences
-  Future<void> saveToken(String token) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('token', token);
   }
 
   // Function to save the user ID to shared preferences

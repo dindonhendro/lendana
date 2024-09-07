@@ -159,7 +159,7 @@ class _UserPage2State extends State<UserPage2> {
                         ),
                         borderRadius: BorderRadius.circular(
                             10), // If using Flutter version >= 3.3.0
-                        dropdownColor: Colors.red[200],
+                        dropdownColor: Colors.blueAccent[100],
                         value: _selectedPendidikan,
                         items: <String>['SD', 'SMP', 'SMA', 'D3', 'S1']
                             .map<DropdownMenuItem<String>>((String value) {
@@ -177,7 +177,7 @@ class _UserPage2State extends State<UserPage2> {
                       SizedBox(height: 20),
                       DropdownButtonFormField<String>(
                         decoration: InputDecoration(
-                          labelText: 'Profesi',
+                          labelText: 'Bidang Pekerjaan',
                           labelStyle: TextStyle(
                               color: Colors.blueAccent, fontSize: 15.0),
                           prefixIcon: Icon(Icons.work),
@@ -194,7 +194,7 @@ class _UserPage2State extends State<UserPage2> {
                         ),
                         borderRadius: BorderRadius.circular(
                             10), // If using Flutter version >= 3.3.0
-                        dropdownColor: Colors.red[200],
+                        dropdownColor: const Color.fromARGB(255, 125, 179, 223),
                         value: _selectedProfesi,
                         items: <String>[
                           'Perawat Lansia (Kaigo)',
@@ -250,10 +250,10 @@ class _UserPage2State extends State<UserPage2> {
                       TextFormField(
                         controller: pengalamanController,
                         decoration: InputDecoration(
-                            labelText: 'pengalaman',
+                            labelText: 'Pengalaman Kerja',
                             labelStyle: TextStyle(
                                 color: Colors.blueAccent, fontSize: 15.0),
-                            hintText: '10 digits',
+                            hintText: 'long text here',
                             hintStyle: TextStyle(color: Colors.grey),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.blue),
@@ -262,7 +262,7 @@ class _UserPage2State extends State<UserPage2> {
                               borderSide: BorderSide(color: Colors.grey),
                             ),
                             prefixIcon: Icon(Icons.credit_card)),
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.multiline,
                       ),
                       SizedBox(height: 20),
                       ElevatedButton(

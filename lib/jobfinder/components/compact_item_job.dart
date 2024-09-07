@@ -1,6 +1,5 @@
 import 'package:lendana5/jobfinder/models/job.dart';
 import 'package:flutter/material.dart';
-import 'package:lendana5/jobfinder/screens/job_detail_screen.dart';
 
 class CompactItemJob extends StatelessWidget {
   final Job job;
@@ -12,15 +11,7 @@ class CompactItemJob extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 7.0),
       child: InkWell(
-        onTap: () {
-          // Navigate to the job detail screen
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => JobDetailScreen(job: job),
-            ),
-          );
-        },
+        onTap: () {},
         child: Card(
           color: Colors.white,
           shape: RoundedRectangleBorder(
